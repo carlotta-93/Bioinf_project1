@@ -5,8 +5,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
-
-\title{Gaussian processes applied to the study of chemotactic movements}
+\usepackage{url}
+\title{Gaussian processes applied to the study of chemotactic movements of droplets}
 
 \author{Carlotta Porcelli, qbp693}
 
@@ -16,134 +16,149 @@
 \maketitle
 
 \begin{abstract}
-Enter a short summary here. What topic do you want to investigate and why? What experiment did you perform? What were your main results and conclusion?
+The research hereby presented investigates the use of a Gaussian Process regression model on a dataset collected from experiments lead in the context of Artificial Chemical Life for the EVOBLISS project \cite{evobliss} at the REAL laboratory in the ITUniversity of Copenhagen \cite{itu_real} . 
+The experiments performed examine the chemotactic behavior of 1-Decanol droplets placed in Decanoate solutions with different pHs and molarities when a chemical gradient is introduced in the external aqueous environment.
+The Gaussian process model has been fit to the data collected in order to look for a combination of ph and molarity values of the decanoate solution that would allow the droplet to increase the efficiency of its chemotactic movement. 
 \end{abstract}
 
-\section{Introduction 5 lines to max 1/2 page}
-\label{sec:introduction}
-
-Explain the context of the experiment here. Why is condensed matter physics interesting or important?
-Optional things you could talk about (but don't have to -- this is up to you): transistors, computers, Quantum computers, fundamental knowledge (e.g. the resistance quantum).
-
-Briefly explain what methods you will use in the experiment, and what values you will extract from the data.
-
-
-
-\section{Theory 2-3 pages}
-\label{sec:theory}
-
-\subsection{The Gaussian Process}
-Here, explain the concept of a 2-DEG in GaAs/AlGaAs. What is a 2-DEG and why does it arise?
-
-\subsection{Hall Effect}
-Explain the classical Hall effect in your own words. What do I measure at $B=0$? And what happens if $B>0$? Which effect gives rise to the voltage drop in the vertical direction?
-
-\subsection{Quantum Hall Effect}
-Explain the IQHE in your own words. What does the density of states look like in a 2-DEG when $B=0$? What are Landau levels and how do they arise? What are edge states? What does the electron transport look like when you change the magnetic field? What do you expect to measure?
-
-\section{Matherials and Methods 1-2 pages}
-
-\subsection{The data set}
-
-
-\subsection{The library used}
-When there is a danger of finding a local, rather than a global, maximum in the marginal likelihood, a non-zero value can be specified for n\_restarts\_optimizer, which will run the optimization algorithm as many times as specified, using randomly-chosen starting coordinates, in the hope that a globally-competitive value can be discovered.
-
-\subsection{Choice of Kernel}
-RBF - 
-\subsubsection{Parameters}
-\textbf{Lengthscale} \textit{l} describes how smooth a function is. Small lengthscale value means that function values can change quickly, large values characterize functions that change only slowly. Lengthscale also determines how far we can reliably extrapolate from the training data.
-\\\textbf{Noise variance} \textit{${ \sigma  }_{ noise }^{ 2 }$} is formally not a part of the covariance function itself. It is used by the Gaussian process model to allow for noise present in training data. This parameter specifies how much noise is expected to be present in the data.
-
-
-
-\section{Results and interpretation 2-3 pages}
-Show a graph of the longitudinal resistivity ($\rho_{xx}$) and Hall resistivity ($\rho_{xy}$) versus magnetic field, extracted from the raw data shown in figure \ref{fig:data}. You will have the link to the data in your absalon messages, if not e-mail Guen (guen@nbi.dk). Explain how you calculated these values, and refer to the theory.
-
-\begin{figure}
-\centering
-\includegraphics[width=1\textwidth]{raw_data.png}
-\caption{\label{fig:data}Raw (unprocessed) data. Replace this figure with the one you've made, that shows the resistivity.}
-\end{figure}
-
-
-\section{Discussion 1/2-1 page}
-Discuss your results. Compare the two values of $n_{s}$ that you've found in the previous section. Compare your results with literature and comment on the difference. If you didn't know the value of the resistance quantum, would you be able to deduce it from your measurements? If yes/no, why?
-
-\subsection{Future work}
-
+\section{Introduction}
+The movement of non-living objects in aqueous environments has been used to reproduce the chemotaxis process of a living cell, movement in a particular direction. \cite{ikea} 
+\\The development of chemical systems that mimic the behavior of living systems can be useful in studying related processes in natural living systems.
+\\The data used in this research were collected from experiments based on two phases. The droplet composition and volume along with the salt gradient created are the same in all the experiments. On the other hand, the experimental space for the water phase is generated by two continuous variables: the molarity and the pH of the decanoate solutions. The experiments carried out by EvoBot \cite{evobot} span in continuous ranges of molarity, from 5mM to 20mM and pH from 7.0 to 12.3 to create the aqueous phase.
+\\The aqueous combinations explored were created by mixing decanoate solutions at different pHs and adding water to get the molarity desired.
+In each experiment the droplet movement is tracked for a total time of 60 seconds. The implementation of the tracking assigns a \textit{fitness value} based on the speed and the spatial precision of the droplet. High values represent good chemotactic movements.
+\\ Figure \ref{fig:droplet_screen} shows an example of the tracking of one individual. The tracking starts at the initial position where the droplet is placed. The blue path is composed of the centroids of the droplet after its movement. 
 \newpage
-\section{Some LaTeX tips}
-\label{sec:latex}
-\subsection{How to Include Figures}
-
-First you have to upload the image file (JPEG, PNG or PDF) from your computer to writeLaTeX using the upload link the project menu. Then use the includegraphics command to include it in your document. Use the figure environment and the caption command to add a number and a caption to your figure. See the code for Figure \ref{fig:frog} in this section for an example.
+The ‘END’ point is where the program stopped tracking the droplet because it reached the proximities where the salt was added, \textit{salt source}. The droplet reached efficiently the salt source and the fitness value registered is 0.120086. 
 
 \begin{figure}
-\centering
-\includegraphics[width=0.3\textwidth]{frog.jpg}
-\caption{\label{fig:frog}This frog was uploaded to writeLaTeX via the project menu.}
+	\centering
+	\includegraphics[width=1\textwidth]{droplet_screen.jpg}
+	\caption{Example of the tracking of an individual. This image is saved for all the experiments and contains the information about the individual, including the pH and molarity of the solution tested, in this case pH=9.66 and molarity=13.50.}
+	\label{fig:droplet_screen}
 \end{figure}
 
-\subsection{How to Make Tables}
+The aim of this project is make an estimation on the values of pH and molarity forming a decanoate solution in which the droplet performs a smooth and precise chemotactic movement. In this mean, a Gaussian regression model is used to characterize a non-linear relationship between the two variables (pH and molarity).
+In a classic linear regression algorithm, it is assumed that a dependent variable y can be modeled as a function of one or more independent variables X in the form of $y=f(x)+\epsilon$.
+The choice of the GP approach relies on the facts that it finds a distribution over the possible functions \textit{f(x)} consistent with the observed data. Moreover, the observations occur in a continuous domain. 
+\newpage
+\section{Materials and methods}
 
-Use the table and tabular commands for basic tables --- see Table~\ref{tab:widgets}, for example.
+\subsection{The Gaussian Processes}
+The task of building regression models to characterize non-linear relationships between variables often involves extensive model selection procedures to ensure that the most appropriate model is chosen.
+A alternative is to use a Bayesian strategy to model the unknown underlying function.
+Modeling data using Gaussian distributions in some cases would not seem to be any gain because of the reduced flexibility that those distributions have. 
+A Gaussian process is defined as probability distribution over functions y(x) so that the set of values of y(x) evaluated on a set of points ${ x }_{ 1 },...,{ x }_{ N }$ jointly have a Gaussian distribution.
+\\A Gaussian process assumes that a $p(f({ x }_{ 1 }),...,f({ x }_{ N }))$ is jointly Gaussian with some mean $\mu(x)$ and covariance $ \sum { (x) } $ given by $\sum _{ ij }^{  }{ =k({ x }_{ i },{ x }_{ j }) } $, where k is a positive definite kernel function \cite{gp_process}.
+The covariance represents a form of distance or similarity. Considering two input points ${x}_{i}$ and ${x}_{j}$ with corresponding observed values ${y}_{i}$ and${y}_{j}$. If the inputs are close to each other, it is expected that that${y}_{i}$ and${y}_{j}$ will be close as well. This measure of similarity is embedded in the covariance function.
+Since the key assumption in GP modelling is that the data can be represented as a sample from a multivariate Gaussian distribution, we have that
+\begin{equation}
+\begin{bmatrix} y \\ { y }_{ * } \end{bmatrix}\sim N \left( 0,\begin{bmatrix} K & { K }^{ T } \\ { K }_{ * } & { K }_{ ** } \end{bmatrix} \right)
+\end{equation}
+Where y is the observed value, ${y}_{*}$ is the prediction and K is the covariance matrix. The interest is on the conditional probability $p({y}_{*}|y)$ that follows a Gaussian distribution:
+\begin{equation}
+{ y }_{ * }|y\sim N({ K }_{ * }{ K }^{ -1 }y,{ K }_{ ** }-{ K }_{ * }{ K }^{ -1 }{ K }_{ * }^{ T })
+\end{equation}
+\newpage
+\subsection{The dataset}
+The data set used is composed of 73 experiments. The first two columns contain the values of pH and molarity of the solution tested, the last column specifies the fitness values computed after the tracking of the droplet. 
+The values of the first 4 data points are shown in Table \ref{table}.
 
-\begin{table}
-\centering
-\begin{tabular}{l|r}
-Item & Quantity \\\hline
-Widgets & 42 \\
-Gadgets & 13
-\end{tabular}
-\caption{\label{tab:widgets}An example table.}
+\begin{table}[]
+	\centering
+	\caption{First 4 data points}
+	\label{table}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{pH} & \textbf{molarity} & \textbf{fitness values} \\ \hline
+		10.07222914 & 11.35659835       & -0.027302565            \\ \hline
+		10.94524279 & 10.03621951       & -0.017098116            \\ \hline
+		9.72623402  & 8.979547637       & -0.032969753            \\ \hline
+		9.841845331 & 12.44303142       & 0.105694953             \\ \hline
+	\end{tabular}
 \end{table}
 
-\subsection{How to Write Mathematics}
+\subsection{Software used}
+The library from which the Gaussian process regression model has been implemented is the GPy framework from the Sheffield machine learning group. \cite{gpy}
 
-\LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-
+\subsubsection{Choice of Kernel}
+The kernel used to describe the covariance function expected in the dataset is the Radial-basis function (RBF) kernel defined on two samples x and x' as: 
 \begin{equation}
-S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i
-\label{eq:sn}
+	K({ x },{ x' })=exp\left( -{ \frac { \| { x }-{ x' }\| ^{ 2 } }{ 2\sigma ^{ 2 } }  } \right)
 \end{equation}
+Where $\| { x }-{ x' }\| ^{ 2 }$ is the squared Euclidean distance between the two samples and $\sigma$ is the length-scale free parameter describing how smooth the function has to be. 
+The kernel used in th GP model has been implemented as follows:
+\\\textbf{kg = GPy.kern.RBF(input\_dim=2, variance=0.5, lengthscale=1., ARD=True)}. 
+Where the \textbf{input\_dim} parameter represents the dimension of the input space, equals to two variables; the \textbf{variance}, determining variation of function values from their mean, has been set to 0.5 and the \textbf{lengthscale} to 1.
 
-denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+\subsubsection{Model parameters and optimization}
+The model has been implemented using the kernel in the above section and the noise variance parameter set to 1. This parameter specifies how much noise is expected to be present in the data.
+\\\textbf{model = GPy.models.GPRegression(XTrain, y\_train\_set\_, kernel=kg, normalizer=False, noise\_var=1.)}
+\\The model has been later fit to the data using the 
+\textbf{model.optimize()} function with maximum number of function evaluations equals to 1000. 
+A value of 10 has been specified for the parameter \textbf{n\_restarts\_optimizer}, which rusn the optimization algorithm as many times as specified, using randomly-chosen starting coordinates to avoid finding a local, rather than a global, maximum in the marginal likelihood.
 
-The equation \ref{eq:sn} is very nice.
+\section{Results}
+The plot in Figure \ref{fig:distributuion_data_set} shows the distribution over the experimental space of the data set. The points are colored accordingly to their fitness value.
+The plot in Figure \ref{fig:before_fit_non_norm} shows the Gaussian density distribution of the data before fitting the model. 
+\\The plot in Figure \ref{fig:after_fit_non_norm} shows the Gaussian density distribution after fitting the model on the data set. 
 
-\subsection{How to Make Sections and Subsections}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{train_data_set_scatter.png}
+	\caption{Distribution of the data set colored by fitness values}
+	\label{fig:distributuion_data_set}
+\end{figure}
 
-Use section and subsection commands to organize your document. \LaTeX{} handles all the formatting and numbering automatically. Use ref and label commands for cross-references.
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{before_fit_non_norm.png}
+\caption{Gaussian distribution before fitting the  non normalized data}
+\label{fig:before_fit_non_norm}
+\end{figure}
 
-\subsection{How to Make Lists}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{after_fit_non_norm.png}
+	\caption{Gaussian distribution after fitting the  non normalized data}
+	\label{fig:after_fit_non_norm}
+\end{figure}
 
-You can make lists with automatic numbering \dots
+\section{Discussion}
+From the plot in Figure \ref{fig:after_fit_non_norm} it is possible to observe the lighter area bounded by values 9.5<pH<10.2 and 12<molarity<14. In this area the samples should get higher fitness values than the darker areas depicted around it. However, it can be observed that many samples in that area have darker color, meaning lower fitness values. This could be explained by the fact that a high number of tested individuals, even having very similar pH and molarity values, produced very different results. 
+This is also shown in the plot in Figure \ref{fig:distributuion_data_set} where many points close to each other have different fitness values.
+The chemical system studied is unfortunately highly unstable. In many cases it has been noticed that Marangoni flows, superficial tensions between droplets and the edge of the Petri dish or air flows, affected the movements of the droplet resulting in low fitness values even though the same aqueous phase might have produced higher results in the previous experiment. 
+To smooth the noise introduced in the system the number of experiment for each individual has been increased to four and the fitness value of the experiment was the median of the four replicas instead of the average, in order to minimize the influence of the outliers.
+Regrettably it seems that there still is a high level of noise in the evaluation.
+ 
+\subsection{Future work}
+To solve the problems related to the chemical system, future work has been programmed to improve the results of these experiments. A change in the protocol for making the solutions is being studied and a covering to avoid air flows from the outside has been designed. 
+On the computational side, different type of kernels or combinations of them could be explored to check for different results. 
+Even though the system is noisy, experiments within the above found range of pH and molarity could be lead in order to check if the fitness values match the ones indicated from the model. 
 
-\begin{enumerate}
-\item Like this,
-\item and like this.
-\end{enumerate}
-\dots or bullet points \dots
-\begin{itemize}
-\item Like this,
-\item and like this.
-\end{itemize}
-\dots or with words and descriptions \dots
-\begin{description}
-\item[Word] Definition
-\item[Concept] Explanation
-\item[Idea] Text
-\end{description}
-
-We hope you find write\LaTeX\ useful, and please let us know if you have any feedback using the help menu above.
+\newpage
 
 \begin{thebibliography}{9}
-\bibitem{nano3}
-  K. Grove-Rasmussen og Jesper Nygård,
-  \emph{Kvantefænomener i Nanosystemer}.
-  Niels Bohr Institute \& Nano-Science Center, Københavns Universitet
+	
+\bibitem{evobliss}
+	\url{https://blogit.itu.dk/evoblissproject/overview/progress/artificial-chemical-life/}
+	
+\bibitem{itu_real}
+	\url{https://real.itu.dk/projects/evobliss/}	
+
+\bibitem{ikea}
+	J. Cejkova, M. Novák, F. Stěpánek and M.M. Hanczyc (2014) Dynamics of tactic droplets in salt concentration gradients. \textit{Langmuir} 30(40): 11937-44.
+
+\bibitem{evobot}
+	\url{https://blogit.itu.dk/evoblissproject/overview/progress/evolutionary-robotic-platform/}
+
+\bibitem{gpy}
+	GPy: A Gaussian process framework in python
+	\url{http://github.com/SheffieldML/GPy}
+
+\bibitem{gp_process}
+Robert, Christian. "Machine Learning, a Probabilistic Perspective." (2014): 62-63.
+
 
 \end{thebibliography}
 \end{document}

@@ -18,3 +18,7 @@ for mol in molarities:
 
 # for i in range(0, 9):
 #     print i
+
+
+dataTrain = np.loadtxt('train_data2.csv', delimiter=';')
+
