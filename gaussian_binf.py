@@ -22,14 +22,15 @@ molarities = XTrain[:, 1]
 
 # plot data
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-my_3d_plot = ax.scatter(phs, molarities, YTrain, zdir='z', s=20, depthshade=True, c=YTrain, cmap='plasma')
-ax.set_xlabel('ph_values')
-ax.set_ylabel('molarity_values')
-ax.set_zlabel('fitness_values')
+# fig = plt.figure()
+# ax = fig.add_subplot(111, projection='3d')
+my_3d_plot = plt.scatter(phs, molarities, s=40, c=YTrain, cmap='plasma')
+plt.xlabel('ph_values')
+plt.ylabel('molarity_values')
+plt.grid(True)
+# my_3d_plot.set_zlabel('fitness_values')
 plt.colorbar(my_3d_plot)
-plt.title('3D plot of data set')
+plt.title('Distribution of the dataset')
 plt.show()
 
 # 2D model

@@ -1,0 +1,1 @@
+	kg = GPy.kern.RBF(input\_dim=2, variance=0.5, lengthscale=1., ARD=True)
